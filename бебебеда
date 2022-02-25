@@ -1,26 +1,66 @@
+
 import tkinter as tk
 import random
-from tkinter import photoimage
+from tkinter import PhotoImage
 
 
 def p():
     global pl
 
     c.delete('all')
-    pla = (random.randint(1, N_X - 1) * s, random.randint(1, N_Y -1) * s)
-    pl= c.create_image((pla[0], pla[1]), image=p2,anchor='nw')
+    pp = (random.randint(1, nx - 1) * step, random.randint(1, ny -1) * step)
+    pl= c.create_image((pp[0], pp[1]), image=pp2,anchor='nw')
     l.config(text='Найди выход')
-    m.bind('<KeyPress>',k)
+    master.bind('<KeyPress>',k1)
 
 
 
 
 def m(obj,mx,my):
-    xy = c.move(obj,mx,my)
+    xy = c.coords(obj)
+    c.move(obj,mx,my)
     print(xy)
     if xy[0] <= 0:
-        c.m(obj,w,0)
-    if xy[0] >= w:
-        c.m(obj, -w, 0)
+        c.move(obj,WIDTH,0)
+    if xy[0] >= WIDTH:
+        c.move(obj, -WIDTH, 0)
     if xy[1] <= 0:
-    if xy[1] <= 0:
+        c.move(obj, 0, HEIGHT)
+    if xy[1] >= HEIGHT:
+        c.move(obj, 0, -HEIGHT)
+
+
+def k1(e):
+    if e.keysym == 'Up':
+        m(pl, 0,-step)
+    elif e.keysym == 'Down':
+        m(pl, 0, step)
+    elif e.keysym == 'Right':
+        m(pl, step, 0)
+    elif e.keysym == 'Left':
+        m(pl, -step, 0)
+
+
+master=tk.Tk()
+
+step = 32
+nx = 10
+ny = 10
+WIDTH = step * nx
+HEIGHT = step * ny
+a = False
+pp2 =tk.PhotoImage(file = r'C:\Users\anato\Downloads\pixil-frame-0 (1).png')
+
+c = tk.Canvas(master, bg='#FCAB08', width=WIDTH, height=HEIGHT)
+
+pp = (random.randint(0,nx - 1) * step,random.randint(0,ny - 1) * step)
+print(pp)
+l = tk.Label(master, text='Не попадись!')
+r = tk.Button(master, text='Начать заново', command=p)
+r.pack()
+l.pack()
+c.pack()
+p()
+master.bind('<KeyPress>', k1)
+master.mainloop()
+
