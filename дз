@@ -1,0 +1,21 @@
+import pygame
+pygame.init()
+a=int(input('Размер окна:'))
+b=int(input('Количество квадратов:'))
+win = pygame.display.set_mode((a, a))
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit()
+    c =(250, 250, 250)
+    win.fill(c)
+    c=int(a/b)
+    for i in range(0, 600, 200):
+        pygame.draw.rect(win,(0, 0, 0), (i,0,c,c))
+        pygame.draw.rect(win,(0, 0, 0), (100,100,c,c))
+        pygame.draw.rect(win,(0, 0, 0), (300,100,c,c))
+# pygame.draw.circle(win,(0,255,255), (300, 400),80)
+#  pygame.draw.polygon(win,(0,0,0),[(0,100),(100,50),(100,150)],False)
+   # pygame.draw.line(win, (255, 255, 255),(0,0),(a,), 10)
+    #pygame.draw.line(win, (255, 255, 255),(a,0),(0  ,b), 10)
+    pygame.display.update()
