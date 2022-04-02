@@ -1,0 +1,22 @@
+class Hunman+:
+    def __init__(self,age,name,height):
+        self.age = age
+        self.name = name
+        self.height = height
+        print('Я родился, моё имя', name)
+    def s(self,name_to):
+        print('hello, my name is',self.age)
+    def te(self):
+        print('h',self.age)
+        print('i',self.age, 'y o')
+    def h(self):
+        print('с др')
+        self.age += 1
+print('alex')
+a = Hunman(10,'ALEX',130)
+print(a.age)
+a.h()
+print(a.age)
+print('andrew')
+an =Hunman(15,'ANDREW',170)
+an.s('sarah')
