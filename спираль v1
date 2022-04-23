@@ -1,4 +1,9 @@
 import pygame
+import random
+a = 500
+b = 500
+FPS = 120
+clock = pygame.time.Clock()
 class circle:
     def __init__(self,x,y,rad,col):
         self.x = x
@@ -8,12 +13,26 @@ class circle:
         self.dir = 'right'
     def h(self):
         if self.dir == 'right':
-            self.x += 1
-            if self.x > W:
+            self.x += 2
+            if self.x > 500:
                 self.dir = 'left'
         else:
-            self.x -= 1
+            self.x -= 2
             if self.x < 0:
                 self.dir = 'right'
-    def d(self):
+    def d(self,win):
         pygame.draw.circle(win, self.col, (self.x, self.y), 50)
+win = pygame.display.set_mode((a, b))
+l_c = []
+for i in range(1000):
+    l_c.append(circle(i * 10, i * 5, 30, random.choices(range(256), k=3)))
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit()
+    win.fill((255,255,255))
+    for i in range(1000):
+        l_c[i].h()
+        l_c[i].d(win)
+    pygame.display.update()
+    clock.tick(FPS)
