@@ -1,0 +1,45 @@
+import pygame as pg
+b = (0,) * 3
+g = (100,) * 3
+w = (255,) * 3
+r = (255,0,0)
+y = (255,255,0)
+l = (0,200,200)
+cr = '#046582'
+ci = '#e4bad4'
+
+class Board:
+    def __init__(self,W,H,size):
+        self.W, self.H = W , H
+        self.size = size
+        self.board = [[0,0,0],[0,0,0],[0,0,0]]
+        self.move = 1
+    def c(self,mouse_pos):
+        x = mouse_pos[0] // self.size
+        y = mouse_pos[1] // self.size
+        self.board[y][x] = self.move
+        self.move = -self.move
+    def re(self,screen):
+        pg.draw.line(screen, g, (0,200),(self.W, 200),2)
+        pg.draw.line(screen, g, (0,400),(self.W, 400))
+        pg.draw.line(screen, g, (200,0),(200, self.H))
+        pg.draw.line(screen, g, (400,0),(400, self.H))
+pg.init()
+screen = pg.display.set_mode((600,600))
+bo = Board(600,600,200)
+while True:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+            exit()
+        if event.type == pg.MOUSEBUTTONDOWN:
+            bo.c(event.pos)
+
+    screen.fill(w)
+    bo.re(screen)
+    pg.display.update()
+
+    keys = pg.key.get_pressed()
+    if keys[pg.K_ESCAPE]:
+        pg.quit()
+        exit()
