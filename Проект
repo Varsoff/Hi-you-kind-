@@ -25,6 +25,16 @@ def size(k,g):
     if k[pg.K_g]:
         if g > 5:
             g -= 1
+    if k[pg.K_1]:
+        g = 3
+    if k[pg.K_2]:
+        g = 5
+    if k[pg.K_3]:
+        g = 7
+    if k[pg.K_4]:
+        g = 9
+    if k[pg.K_5]:
+        g = 11
         k = pg.key.get_pressed()
     return g
 
