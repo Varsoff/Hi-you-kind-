@@ -1,0 +1,29 @@
+import sqlite3 as sq
+con = sq.connect('school.sqlite')
+cur = con.cursor()
+que_create = '''CREATE TABLE IF NOT EXISTS class (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    surname TEXT,
+    mark INTEGER
+)
+'''
+cur.execute(que_create)
+con.commit()
+con.close()
+
+
+
+
+
+import sqlite3 as sq
+con = sq.connect('school.sqlite')
+cur = con.cursor()
+que_insert = '''INSERT INTO school (name, surname, mark) VALUES
+    ('Василий', 'Пупкин', 3)
+    ('Денис', 'Синицын', 3)
+    ('Саша', 'Петров', 3)
+'''
+cur.execute(que_insert)
+con.commit()
+con.close()
