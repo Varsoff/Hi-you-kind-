@@ -1,5 +1,35 @@
 import pygame as pg
 import random
+import os
+import re
+
+def screen(self):
+# in the event loop
+    for event in pg.event.get():
+        if event.key == pg.K_p:
+            # save a screenshot with the PRINT key
+
+            # check if there is a screenshot folder already
+            # if not, create one
+            folder = os.path.join(os.path.dirname(__file__), 'screenshots')
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+
+            # check the existing files for their index
+            index = 0
+            for f in os.listdir(folder):
+                # match filenames that come from this app
+                match = re.match('screenshot\d+.png', f)
+                if match:
+                    # if a file exists,
+                # check if that file's index is bigger than
+                # the current index;
+                # indices are formatted with 3 digits
+                    new_index = int(re.search('\d+', f).group())
+                    index = max(index, new_index + 1)
+
+        pg.image.save(self.app_screen,
+                      os.path.join(folder, f'screenshot{index:03d}.png'))
 
 def color(k,wh):
     if k[pg.K_z]:
@@ -16,6 +46,8 @@ def color(k,wh):
         wh = [255,255,0]
     if k[pg.K_m]:
         wh = [255,0,255]
+    if k[pg.K_l]:
+        wh = [255,255,255]
     return wh
 def size(k,g):
     if k[pg.K_h]:
