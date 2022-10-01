@@ -48,6 +48,8 @@ def color(k,wh):
         wh = [255,0,255]
     if k[pg.K_l]:
         wh = [255,255,255]
+    if k[pg.K_r]:
+        wh = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
     return wh
 def size(k,g):
     if k[pg.K_h]:
@@ -67,7 +69,36 @@ def size(k,g):
         g = 9
     if k[pg.K_5]:
         g = 11
+    if k[pg.K_6]:
+        g = 13
+    if k[pg.K_7]:
+        g = 15
         k = pg.key.get_pressed()
+    if k[pg.K_7]:
+        k = pg.key.get_pressed()
+
+
+
+    if k[pg.K_p]:
+        folder = os.path.join(os.path.dirname(__file__), 'screenshots')
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
+        # check the existing files for their index
+        index = 0
+        for f in os.listdir(folder):
+            # match filenames that come from this app
+            match = re.match('screenshot\d+.png', f)
+            if match:
+                # if a file exists,
+                # check if that file's index is bigger than
+                # the current index;
+                # indices are formatted with 3 digits
+                new_index = int(re.search('\d+', f).group())
+                index = max(index, new_index + 1)
+        print(1)
+        pg.image.save(win,
+                  os.path.join(folder, f'screenshot{index:03d}.png'))
     return g
 
 gr = [70] * 3
@@ -83,6 +114,7 @@ while 1:
         if event.type == pg.QUIT:
             pg.quit()
             exit()
+
     pr = pg.mouse.get_pressed()
     if pr[0]:
         pos = pg.mouse.get_pos()
