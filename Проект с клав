@@ -49,6 +49,9 @@ def color(k,wh):
         wh = [255,0,255]
     if k[pg.K_l]:
         wh = [255,255,255]
+    if k[pg.K_r]:
+        wh = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
+        pg.time.delay(100)
     if k[pg.K_h]:
         root = Tk()
         root.title('Горячие Клавиши')
