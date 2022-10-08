@@ -3,14 +3,6 @@ import random
 import os
 import re
 from tkinter import *
-root = Tk()
-root.title('Горячие Клавиши')
-root.geometry('1024x512')
-root.resizable(width=False, height=False)
-
-root.image = PhotoImage(file='LOL123.png')
-bg_logo = Label(root, image = root.image)
-bg_logo.grid(row=0,column=0)
 
 def screen(self):
 # in the event loop
@@ -57,9 +49,20 @@ def color(k,wh):
         wh = [255,0,255]
     if k[pg.K_l]:
         wh = [255,255,255]
+    if k[pg.K_h]:
+        root = Tk()
+        root.title('Горячие Клавиши')
+        root.geometry('1024x512')
+        root.resizable(width=False, height=False)
+
+        root.image = PhotoImage(file='1233.png')
+        bg_logo = Label(root, image=root.image)
+        bg_logo.grid(row=0, column=0)
+        root.mainloop()
+
     return wh
 def size(k,g):
-    if k[pg.K_h]:
+    if k[pg.K_f]:
         if g < 50:
             g += 1
         k = pg.key.get_pressed()
@@ -76,6 +79,14 @@ def size(k,g):
         g = 9
     if k[pg.K_5]:
         g = 11
+    if k[pg.K_6]:
+        g = 13
+    if k[pg.K_7]:
+        g = 15
+    if k[pg.K_8]:
+        g = 17
+    if k[pg.K_9]:
+        g = 19
         k = pg.key.get_pressed()
     return g
 
@@ -105,4 +116,3 @@ while 1:
     pg.display.update()
     pg.time.delay(1)
 
-    root.mainloop()
