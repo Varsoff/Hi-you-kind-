@@ -91,6 +91,27 @@ def size(k,g):
     if k[pg.K_9]:
         g = 19
         k = pg.key.get_pressed()
+        
+    if k[pg.K_p]:
+        folder = os.path.join(os.path.dirname(__file__), 'screenshots')
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
+        # check the existing files for their index
+        index = 0
+        for f in os.listdir(folder):
+            # match filenames that come from this app
+            match = re.match('screenshot\d+.png', f)
+            if match:
+                # if a file exists,
+                # check if that file's index is bigger than
+                # the current index;
+                # indices are formatted with 3 digits
+                new_index = int(re.search('\d+', f).group())
+                index = max(index, new_index + 1)
+        print(1)
+        pg.image.save(win,
+                  os.path.join(folder, f'screenshot{index:03d}.png'))
     return g
 
 gr = [70] * 3
