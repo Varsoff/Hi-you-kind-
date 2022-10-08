@@ -1,0 +1,108 @@
+import pygame as pg
+import random
+import os
+import re
+from tkinter import *
+root = Tk()
+root.title('Горячие Клавиши')
+root.geometry('1024x512')
+root.resizable(width=False, height=False)
+
+root.image = PhotoImage(file='LOL123.png')
+bg_logo = Label(root, image = root.image)
+bg_logo.grid(row=0,column=0)
+
+def screen(self):
+# in the event loop
+    for event in pg.event.get():
+        if event.key == pg.K_p:
+            # save a screenshot with the PRINT key
+
+            # check if there is a screenshot folder already
+            # if not, create one
+            folder = os.path.join(os.path.dirname(__file__), 'screenshots')
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+
+            # check the existing files for their index
+            index = 0
+            for f in os.listdir(folder):
+                # match filenames that come from this app
+                match = re.match('screenshot\d+.png', f)
+                if match:
+                    # if a file exists,
+                # check if that file's index is bigger than
+                # the current index;
+                # indices are formatted with 3 digits
+                    new_index = int(re.search('\d+', f).group())
+                    index = max(index, new_index + 1)
+
+        pg.image.save(self.app_screen,
+                      os.path.join(folder, f'screenshot{index:03d}.png'))
+
+def color(k,wh):
+    if k[pg.K_z]:
+        wh = [0,0,0]
+    if k[pg.K_x]:
+        wh = [255,0,0]
+    if k[pg.K_c]:
+        wh = [0,255,0]
+    if k[pg.K_v]:
+        wh = [0,0,255]
+    if k[pg.K_b]:
+        wh = [0,255,255]
+    if k[pg.K_n]:
+        wh = [255,255,0]
+    if k[pg.K_m]:
+        wh = [255,0,255]
+    if k[pg.K_l]:
+        wh = [255,255,255]
+    return wh
+def size(k,g):
+    if k[pg.K_h]:
+        if g < 50:
+            g += 1
+        k = pg.key.get_pressed()
+    if k[pg.K_g]:
+        if g > 5:
+            g -= 1
+    if k[pg.K_1]:
+        g = 3
+    if k[pg.K_2]:
+        g = 5
+    if k[pg.K_3]:
+        g = 7
+    if k[pg.K_4]:
+        g = 9
+    if k[pg.K_5]:
+        g = 11
+        k = pg.key.get_pressed()
+    return g
+
+gr = [70] * 3
+bl = [0] * 3
+wh = [0] * 3
+w, h = 1500, 1000
+g = 5
+pg.init()
+win = pg.display.set_mode((w,h))
+win.fill((255,255,255))
+while 1:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+            exit()
+    pr = pg.mouse.get_pressed()
+    if pr[0]:
+        pos = pg.mouse.get_pos()
+        pg.draw.circle(win,wh,pos,g)
+    k = pg.key.get_pressed()
+    if k[pg.K_SPACE]:
+        win.fill((255,255,255))
+        g = 5
+    g = size(k,g)
+    wh = color(k,wh)
+    pg.display.update()
+    pg.time.delay(1)
+
+    root.mainloop()
